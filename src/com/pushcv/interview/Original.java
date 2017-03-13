@@ -32,7 +32,7 @@ import com.codename1.ui.util.Resources;
 
 
 
-public class Interview {
+public class Original {
 
     private Form current;
     
@@ -99,7 +99,6 @@ public class Interview {
         
         
        /* NetworkManager.getInstance().addErrorListener(new ActionListener() {
-
      public void actionPerformed(ActionEvent evt) {
          //handle your error here consume the event
          evt.consume();
@@ -423,19 +422,11 @@ public class Interview {
     
     
     
-    
     private void howToUse()
     {
         Form instructionForm = new Form();
         //instructionForm.setUIID("formtip");
         String howTOUse [] = {"You seeing this page means you have successfully logged In","The next  page after this offers you some basic tips for an interview","The Question page follows that.","On the question page, you have only fifteen seconds tostare at a question.","You can click answer question before the time elapse","If you click the button it starts recording, if also the time elapse itself it does the same","You have 30 seconds to answer one question"};
-        String t[] = {"Do Your Research.", "Look Sharp.","Be Prepared.","Be on Time.","Never arrive late to an interview. Allow extra time to arrive early in the vicinity, allowing for factors like getting lost. ...","Listen.","Answer the Question Asked.","Give Specific Examples."};
-        tips = new String[t.length];
-        int z = 0;
-        for(String u: t){
-            tips[z] = u;
-            z++;
-        }
         TextArea instructionlabels[] = new TextArea[howTOUse.length];
         TableLayout table1 = new TableLayout(3, 1);
         TableLayout.Constraint constraint;
@@ -511,9 +502,6 @@ public class Interview {
         instructionForm.setLayout(table1);
         instructionForm.setScrollable(false);
         
-        String q [] = {"What do you know about the company?", "What are your weaknesses?", "What is your greatest professional achievement?", "What salary are you seeking?", "FINISH"};
-        questions = new String[q.length];
-        questions = q;
         
         Container tipContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         tipContainer.setUIID("tip");
@@ -586,7 +574,7 @@ public class Interview {
     public void validateLogIN(String email, String voucher)
     {
         //Connects to the login page and collect JSON and process it.
-        /*myrequest = new ConnectionRequest(){
+        myrequest = new ConnectionRequest(){
             
             @Override
             protected void handleErrorResponseCode(int code, String message) {
@@ -669,18 +657,19 @@ public class Interview {
         
         
         
-        };*/
+        };
         
-       /* String deviceType = Display.getInstance().getProperty("OS", "");
+        String deviceType = Display.getInstance().getProperty("OS", "");
+                                        myrequest.setUrl("https://www.pushcv.com/pmi_auth");
                                         myrequest.setPost(true);
                                         myrequest.addArgument("email", email);
                                         myrequest.addArgument("code", voucher);
                                         myrequest.addArgument("action", deviceType);
                                         myrequest.setPriority(ConnectionRequest.PRIORITY_CRITICAL);
-                                        NetworkManager.getInstance().addToQueue(myrequest);*/
+                                        NetworkManager.getInstance().addToQueue(myrequest);
                                         
-           question_text = "Can you tell me a little about yourself?";                             
-           howToUse();                            
+                                        
+                                       
         
     }
     
@@ -878,7 +867,7 @@ public class Interview {
        p = getTempFileName();
        try{
             
-           media = MediaManager.createMediaRecorder(p,MediaManager.getMediaRecorderingMimeType());
+            media = MediaManager.createMediaRecorder(p,MediaManager.getMediaRecorderingMimeType());
             media.play();
       }catch (IOException ex) {
            ex.printStackTrace();
@@ -902,7 +891,6 @@ public class Interview {
     Container con;
     Label loading;
     Resources r;
-    int countQuestion = -1;
     private void sendToNetwork(boolean timeElapsed) {
         waitForm = new Form();
         BorderLayout bl = new BorderLayout();
@@ -934,31 +922,14 @@ public class Interview {
             public void run() {
                 if(i<0)
                 {
-                  // i = tips.length -1;
-                  // lab.setText("Thanks for your patience, System is still processing next question... Please wait and continue reading the tips");
-                    timehint.cancel();
-                        
-                        lab.setText("Your next Question is Ready Click the button to answer it");
-                        countQuestion++;
-                        question_text = questions[countQuestion];
-                        nextQuestion.setEnabled(true);
-                       FileSystemStorage.getInstance().deleteRetry(p, 3);
-                        closeApp.setEnabled(true);
-                        
-                        if(question_text.equals("FINISH"))
-                {
-                    timehint.cancel();
-                    lab.setText("Thank You For Performing the interview, \r\nYou can now log out of the system");
-                    nextQuestion.setText("DONE");
-                    nextQuestion.setEnabled(true);
-                   FileSystemStorage.getInstance().deleteRetry(p, 3);
-                }
+                   i = tips.length -1;
+                   lab.setText("Thanks for your patience, System is still processing next question... Please wait and continue reading the tips");
                 }
                 else
                 {
                 
                 lab.setText(tips[i]);
-                i-=2;
+                i--;
                 }
             }
         });
@@ -974,7 +945,7 @@ public class Interview {
                 if(question_text.equals("FINISH"))
                     Display.getInstance().exitApplication();
                 else
-                    questionForm();
+                questionForm();
             }
         });
         
@@ -1010,7 +981,7 @@ public class Interview {
         waitForm.show();
         
            
-       /*     try {
+            try {
             
             
             
@@ -1139,16 +1110,13 @@ public class Interview {
         
         } catch (IOException ex) {
             
-        }*/
+        }
             
             
         
+
                 
-                
-                //waitForm.revalidate();
-                
-                
-                timehint.schedule(5000, true, waitForm);
+            
         
         
                      
@@ -1156,7 +1124,7 @@ public class Interview {
         
     }
     
-    String questions[];
+    
     boolean bool;
     private boolean showDialog(String title, String message, int messageType, String okMessage, String cancelMessage, Image icon)
     {

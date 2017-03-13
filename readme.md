@@ -5,6 +5,11 @@ It allows job seekers to perform interview at anytime of their convenience, mobi
 
 The server code will be available at https://github.com/holuborhee/Interview
 
+## Download
+
+There is a sample of this application available
+ [Click to download sample](http://codename-one.appspot.com/5915047407910912/62ee2450-8643-461f-be9f-bfa547a6236b/Interview-release.apk)
+
 ## Built With
 
 * [Codename One](https://codenameone.com/)
